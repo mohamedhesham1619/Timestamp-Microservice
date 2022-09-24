@@ -40,7 +40,7 @@ app.get('/api', (req, res)=>{
   let date = new Date()
   res.json({
     unix: date.valueOf(),
-    utx: date.toUTCString()
+    utc: date.toUTCString()
   })
 })
 
