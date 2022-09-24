@@ -36,6 +36,13 @@ app.get("/api/:date", function (req, res) {
     })
   }
 });
+app.get('/api', (req, res)=>{
+  let date = new Date()
+  res.json({
+    unix: date.valueOf(),
+    utx: date.toUTCString()
+  })
+})
 
 
 
