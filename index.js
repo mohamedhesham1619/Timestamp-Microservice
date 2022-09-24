@@ -8,7 +8,7 @@ var app = express();
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
-app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
+app.use(cors({ optionsSuccessStatus: 200 }));  // some legacy browsers choke on 204
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
@@ -21,12 +21,16 @@ app.get("/", function (req, res) {
 
 // your first API endpoint... 
 app.get("/api/:date", function (req, res) {
-  let date = new Date(req.params.date)
+  
+  // if date is number multiply it by 1000 so that the argument is in milliseconds, not seconds.
+  let date = (req.params.date.includes('-')) ?
+   new Date(req.params.date) 
+   : new Date(req.params.date * 1000) 
 
-  if (date == 'Invalid Date'){
-    res.json({error: 'Invalid Date'})
+  if (date == 'Invalid Date') {
+    res.json({ error: 'Invalid Date' })
   }
-  else{
+  else {
     res.json({
       unix: date.valueOf(),
       utc: date.toUTCString()
