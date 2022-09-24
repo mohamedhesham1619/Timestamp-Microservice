@@ -21,11 +21,10 @@ app.get("/", function (req, res) {
 
 // your first API endpoint... 
 app.get("/api/:date", function (req, res) {
-  
-  // if date is number multiply it by 1000 so that the argument is in milliseconds, not seconds.
+
   let date = (req.params.date.includes('-')) ?
    new Date(req.params.date) 
-   : new Date(req.params.date * 1000) 
+   : new Date(parseInt(req.params.date)) 
 
   if (date == 'Invalid Date') {
     res.json({ error: 'Invalid Date' })
