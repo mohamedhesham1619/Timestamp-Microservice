@@ -18,13 +18,15 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
+// )
 // your first API endpoint... 
 app.get("/api/:date", function (req, res) {
+  let regex = /^[0-9]+$/
 
-  let date = (req.params.date.includes('-')) ?
-   new Date(req.params.date) 
-   : new Date(parseInt(req.params.date)) 
+  // use regex to check if the argument contains numbers only
+  let date = (regex.test(req.params.date)) ?
+    new Date(parseInt(req.params.date)) :
+    new Date(req.params.date)
 
   if (date == 'Invalid Date') {
     res.json({ error: 'Invalid Date' })
@@ -36,7 +38,7 @@ app.get("/api/:date", function (req, res) {
     })
   }
 });
-app.get('/api', (req, res)=>{
+app.get('/api', (req, res) => {
   let date = new Date()
   res.json({
     unix: date.valueOf(),
